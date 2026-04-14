@@ -6,11 +6,25 @@
 
 / {
     behaviors {
-        rot_kp: rot_kp {
-            compatible = "zmk,behavior-sensor-rotate-var";
-            label = "ROT_KP";
-            #sensor-binding-cells = <2>;
+        enc_vol: enc_vol {
+            compatible = "zmk,behavior-sensor-rotate";
+            label = "ENC_VOL";
+            #sensor-binding-cells = <0>;
+            bindings = <&kp C_VOL_UP>, <&kp C_VOL_DN>;
+        };
+
+        enc_scroll: enc_scroll {
+            compatible = "zmk,behavior-sensor-rotate";
+            label = "ENC_SCROLL";
+            #sensor-binding-cells = <0>;
             bindings = <&kp PG_UP>, <&kp PG_DN>;
+        };
+
+        enc_hscroll: enc_hscroll {
+            compatible = "zmk,behavior-sensor-rotate";
+            label = "ENC_HSCROLL";
+            #sensor-binding-cells = <0>;
+            bindings = <&kp LC(RIGHT)>, <&kp LC(LEFT)>;
         };
     };
 
@@ -101,11 +115,18 @@
 &kp GRAVE  &kp N1  &kp N2    &kp N3    &kp N4     &kp N5                          &kp N6  &kp N7     &kp N8     &kp N9    &kp N0    &kp BSPC
 &kp ESC    &kp Q   &kp W     &kp E     &kp R      &kp T                           &kp Y   &kp U      &kp I      &kp O     &kp P     &kp BSLH
 &kp TAB    &kp A   &kp S     &kp D     &kp F      &kp G                           &kp H   &kp J      &kp K      &kp L     &kp SEMI  &kp SQT
-&kp LSHFT  &kp Z   &kp X     &kp C     &kp V      &kp B   &kp LBKT     &rot_kp PG_UP PG_DN   &kp N   &kp M      &kp COMMA  &kp DOT   &kp FSLH  &kp RSHFT
+&kp LSHFT  &kp Z   &kp X     &kp C     &kp V      &kp B   &kp LBKT     &kp RBKT   &kp N   &kp M      &kp COMMA  &kp DOT   &kp FSLH  &kp RSHFT
                    &kp LGUI  &kp LALT  &kp LCTRL  &mo 2   &kp SPACE    &kp ENTER  &mo 3   &kp RCTRL  &kp RALT   &kp RGUI
             >;
 
             display-name = "Base";
+            sensor-bindings =
+                <&enc_vol>,
+                <&enc_vol>,
+                <&enc_vol>,
+                <&enc_vol>,
+                <&enc_vol>,
+                <&enc_vol>;
         };
 
         ru {
@@ -114,12 +135,17 @@
 &kp GRAVE  &kp N1                   &kp N2                &kp N3              &kp N4              &kp N5                                                               &kp N6              &kp N7                     &kp N8               &kp N9                 &kp N0               &kp BSPC
 &kp ESC    &kp RU_CYRILLIC_SHORT_I  &kp RU_CYRILLIC_TSE   &kp RU_CYRILLIC_U   &kp RU_CYRILLIC_KA  &kp RU_CYRILLIC_IE                                                   &kp RU_CYRILLIC_EN  &kp RU_CYRILLIC_GHE        &kp RU_CYRILLIC_SHA  &kp RU_CYRILLIC_SHCHA  &kp RU_CYRILLIC_ZE   &kp BSLH
 &kp TAB    &kp RU_CYRILLIC_EF       &kp RU_CYRILLIC_YERU  &kp RU_CYRILLIC_VE  &kp RU_CYRILLIC_A   &kp RU_CYRILLIC_PE                                                   &kp RU_CYRILLIC_ER  &kp RU_CYRILLIC_O          &kp RU_CYRILLIC_EL   &kp RU_CYRILLIC_DE     &kp RU_CYRILLIC_ZHE  &kp RU_CYRILLIC_E
-&kp LSHFT  &kp RU_CYRILLIC_YA       &kp RU_CYRILLIC_CHE   &kp RU_CYRILLIC_ES  &kp RU_CYRILLIC_EM  &kp RU_CYRILLIC_I   &kp RU_CYRILLIC_HA    &rot_kp PG_UP PG_DN        &kp RU_CYRILLIC_TE  &kp RU_CYRILLIC_SOFT_SIGN  &kp RU_CYRILLIC_BE   &kp RU_CYRILLIC_YU     &kp RU_DOT           &kp RSHFT
+&kp LSHFT  &kp RU_CYRILLIC_YA       &kp RU_CYRILLIC_CHE   &kp RU_CYRILLIC_ES  &kp RU_CYRILLIC_EM  &kp RU_CYRILLIC_I   &kp RU_CYRILLIC_HA    &kp RBKT                   &kp RU_CYRILLIC_TE  &kp RU_CYRILLIC_SOFT_SIGN  &kp RU_CYRILLIC_BE   &kp RU_CYRILLIC_YU     &kp RU_DOT           &kp RSHFT
                                     &kp LGUI              &kp LALT            &kp LCTRL           &mo 2               &kp SPACE             &kp ENTER                  &mo 4               &kp RCTRL                  &kp RALT             &kp RGUI
             >;
 
             sensor-bindings =
-                <&rot_kp PG_UP PG_DN>;
+                <&enc_vol>,
+                <&enc_vol>,
+                <&enc_vol>,
+                <&enc_vol>,
+                <&enc_vol>,
+                <&enc_scroll>;
         };
 
         nav {
@@ -132,6 +158,14 @@
             >;
 
             display-name = "Nav";
+
+            sensor-bindings =
+                <&enc_vol>,
+                <&enc_vol>,
+                <&enc_vol>,
+                <&enc_vol>,
+                <&enc_vol>,
+                <&enc_hscroll>;
         };
 
         sym_en {
