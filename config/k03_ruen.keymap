@@ -3,6 +3,8 @@
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/outputs.h>
+#define ZMK_POINTING_DEFAULT_SCRL_VAL 600
+#include <dt-bindings/zmk/pointing.h>
 
 / {
     behaviors {
@@ -17,14 +19,16 @@
             compatible = "zmk,behavior-sensor-rotate";
             label = "ENC_SCROLL";
             #sensor-binding-cells = <0>;
-            bindings = <&kp PG_UP>, <&kp PG_DN>;
+            tap-ms = <20>;
+            bindings = <&msc SCRL_UP>, <&msc SCRL_DOWN>;
         };
 
         enc_hscroll: enc_hscroll {
             compatible = "zmk,behavior-sensor-rotate";
             label = "ENC_HSCROLL";
             #sensor-binding-cells = <0>;
-            bindings = <&kp LC(RIGHT)>, <&kp LC(LEFT)>;
+            tap-ms = <20>;
+            bindings = <&msc SCRL_RIGHT>, <&msc SCRL_LEFT>;
         };
     };
 
